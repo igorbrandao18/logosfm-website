@@ -1,0 +1,17 @@
+{ "menu":
+	[
+		{
+		  "inicio": "Home",
+		  "perfil" : "Profile",
+		  "cartoes" : "Cards",
+		  "favoritos" : "Favorites",
+		  "historico" : "Historic",
+		  "minhas_reservas":"My reservations",
+		  "configuracoes":"Settings",
+		  "vouchers" : "Vouchers",
+		  "termos" : "Terms and conditions",
+		  "versao" : "Version",
+		  "sair" : "Exit"
+		}
+  	]
+}

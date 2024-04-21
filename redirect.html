@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>LOGOS FM</title>
+  <meta name="apple-itunes-app" content="app-id=1298631584">
+</head>
+<body>
+  aguarde...
+ 
+  <script type="text/javascript">
+  var ua = navigator.userAgent.toLowerCase();
+  var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+  if(isAndroid) {
+    window.location = 'https://play.google.com/store/apps/details?id=com.app.logosfm';
+  }
+
+  if(isIOS){
+    window.location = 'https://www.logosfm.com.br/';
+  }
+
+  if(!isIOS && !isAndroid){
+    window.location = 'https://www.logosfm.com.br/';
+  }
+    
+  </script>
+</body>
+  
+</html>

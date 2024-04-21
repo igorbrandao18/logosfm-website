@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en" class="no-js" ng-app="Home">
+<head>
+    <title>Logos FM</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="description"
+          content="Rádio LOGOS FM 91,3!! JESUS TE AMA!!!">
+    <meta name="keywords" content="Castilo, HTML5, Template, Design, Development">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:300,400%7CKarla:400,700" rel="stylesheet">
+    <link rel="shortcut icon" href="./tmp/icon.ico">
+    <link rel="stylesheet" href="assets/css/bootstrap-reboot.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-grid.css">
+    <link rel="stylesheet" href="assets/css/material-design-iconic-font.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel='stylesheet' href='assets/css/angular-material.css'>
+    <script>
+        if (window.location.protocol === "http:") {
+            console.log("You are not connected with a secure connection.")
+            console.log("Reloading the page to a Secure Connection...")
+            window.location = document.URL.replace("http://", "https://");
+        }
+        if (window.location.protocol === "https:") {
+            console.log("You are connected with a secure connection.")
+        }
+    </script>
+    <!-- Global site tag (gtag.js) - Google Ads: 10986891019 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10986891019"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-10986891019');
+</script>
+</head>
+<body class="home" ng-controller="MyCtrl">
+<header id="top" class="navbar navbar-sticky">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="site-title col col-lg-auto order-first">
+                <h1>
+                    <a href="index.html" class="custom-logo-link" rel="home">
+                        <img src="tmp/logo-radio.png" class="custom-logo logo-header" width="76" height="18"
+                             alt="Castilo">
+                    </a>
+                </h1>
+            </div>
+            <nav id="site-menu" class="col-12 col-lg order-3 order-sm-4 order-lg-2">
+                <ul>
+                    <li class="menu-item"><a href="index.html">Home</a></li>
+                </ul>
+            </nav>
+            <nav id="social-links-menu" class="col-12 col-md-auto order-4 order-md-1 order-lg-3">
+                <ul class="social-navigation">
+                    <li class="menu-item menu-item-type-custom">
+                        <a title="Facebook Profile" target="_blank"
+                           href="https://www.facebook.com/radiologosfm913"><span
+                                class="screen-reader-text">Facebook</span></a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom">
+                        <a title="YouTube Channel" target="_blank" href="https://youtube.com"><span
+                                class="screen-reader-text">YouTube</span></a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom">
+                        <a title="YouTube Channel" target="_blank" href="https://instagram.com/logosfm"><span
+                                class="screen-reader-text">Instagram</span></a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom">
+                        <a title="Google Play" target="_blank"
+                           href="https://play.google.com/store/apps/details?id=com.app.logosfm"><span
+                                class="screen-reader-text">Google Play</span></a>
+                    </li>
+                    <li class="menu-item menu-item-type-custom">
+                        <a title="App Store" target="_blank"
+                           href="https://apps.apple.com/us/app/logos-fm/id1436607873?l=pt&ls=1"><span
+                                class="screen-reader-text">App Store</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <!--            <div class="call-to-action col-12 col-sm-auto order-5 order-sm-2 order-lg-4">-->
+            <!--                <a href="#" class="button button-small" target="_blank"><span class="zmdi zmdi-filter-list"></span>Live (Áudio e Vídeo)</a>-->
+            <!--            </div>-->
+            <div class="site-menu-toggle col-auto order-2 order-sm-3">
+                <a href="#site-menu">
+                    <span class="screen-reader-text">Toggle navigation</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<header id="featured" class="featured-content fade-background-0 padding-top-bottom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12 col-lg-8 col-xl-7">
+                <div class="latest-episode">
+                    <div class="podcast-episode">
+                        <h1 class="entry-title"><a href="single-episode.html">Levando a Palavra de Deus por todos os
+                            cantos e por todos os meios.</a></h1>
+                        <p class="big text-uppercase opacity-50">Tá Logos, tá na bênção!</p>
+                        <div class="podcast-episode">
+                            <div class="podcast-episode-player">
+<!--                                
+                                                                <audio ng-repeat="audio in api_radio" class="wp-audio-shortcode" preload="none" style="width: 100%;"
+                                                                       controls="controls">
+                                                                    <source src="{{audio.url}}" type="audio/mpeg"/>
+                                                                    <span>{{audio.name}}</span>
+                                                                </audio>
+                                -->
+                                <audio class="wp-audio-shortcode" preload="none" style="width: 100%;"
+                                       controls="controls">
+                                    <source src="https://streaming-prod.logosfm.com.br/stream" type="audio/mpeg">
+                                                                    <!--    Your browser does not support the audio element. -->
+                                </audio>
+                            </div>
+                        </div>
+                        <p>
+                            <a href="https://apps.apple.com/us/app/logos-fm/id1436607873?l=pt&ls=1"
+                               class="button button-filled button-color"><span class="zmdi zmdi-apple"></span>
+                                App Store</a>
+                            <a href="https://play.google.com/store/apps/details?id=com.app.logosfm"
+                               class="button button-white"><span class="zmdi zmdi-google-play"></span> Google
+                                Play</a>
+                            <!--                            <a href="#" class="button button-white"><span class="zmdi zmdi-rss"></span>Live (Áudio e Vídeo)</a>-->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main id="content" class="padding-top-bottom" style="display: none;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="episodes-listing">
+                    <h3 class="add-separator"><span>Browse <em>Episodes</em></span></h3>
+                    <article class="entry entry-episode">
+                        <div class="row align-items-lg-center">
+                            <div class="col-12 col-md-4 col-xl-3">
+                                <div class="entry-media entry-image multiply-effect">
+                                    <a href="single-episode.html">
+                                        <img class="first" src="tmp/sample-post-square1.jpg" width="736" height="736"
+                                             alt="">
+                                        <span class="second"><img src="tmp/sample-post-square1.jpg" width="736"
+                                                                  height="736" alt=""></span>
+                                        <span class="third"><img src="tmp/sample-post-square1.jpg" width="736"
+                                                                 height="736" alt=""></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8 col-xl-9">
+                                <header class="entry-header">
+                                    <div class="entry-meta">
+                                        <span class="posted-in"><span class="screen-reader-text">Posted in: </span> <a
+                                                href="episodes.html" rel="bookmark">Season 1</a></span> <span
+                                            class="posted-on"><span class="screen-reader-text">Posted on: </span> <a
+                                            href="single-episode.html" rel="bookmark"><time class="entry-date published"
+                                                                                            datetime="2017-09-13T14:48:37+00:00">13 September 2017</time></a></span>
+                                        <span class="tags"><span class="screen-reader-text">Tagged: </span> <a rel="tag"
+                                                                                                               href="#">audio</a>, <a
+                                                rel="tag" href="#">goodbyes</a>, <a rel="tag" href="#">life</a></span>
+                                    </div>
+                                    <h2 class="entry-title"><a href="single-episode.html" rel="bookmark">A short wave
+                                        goodbye for my good friend Francisco</a></h2>
+                                </header>
+                                <div class="entry-content">
+                                    <p>Capicola jerky ham hock, pork doner jowl tail boudin strip steak rump kevin
+                                        bresaola salami biltong cupim kevin tri-tip sirloin spare ribs turkey corned
+                                        beef turkey cow short ribs&hellip; <a href="single-episode.html">(read more)</a>
+                                    </p>
+                                </div>
+                                <div class="entry-audio">
+                                    <div class="podcast-episode">
+                                        <div class="podcast-episode-player" data-episode-duration="00:41">
+                                            <audio class="wp-audio-shortcode" preload="none" style="width: 100%;"
+                                                   controls="controls">
+                                                <source src="https://html.liviucerchez.com/common/preview1.mp3"
+                                                        type="audio/mpeg"/>
+                                                <source src="https://html.liviucerchez.com/common/preview1.ogg"
+                                                        type="audio/ogg"/>
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="entry entry-episode">
+                        <div class="row align-items-lg-center">
+                            <div class="col-12 col-md-4 col-xl-3">
+                                <div class="entry-media entry-image multiply-effect">
+                                    <a href="single-episode.html">
+                                        <img class="first" src="tmp/sample-post-square2.jpg" width="736" height="736"
+                                             alt="">
+                                        <span class="second"><img src="tmp/sample-post-square2.jpg" width="736"
+                                                                  height="736" alt=""></span>
+                                        <span class="third"><img src="tmp/sample-post-square2.jpg" width="736"
+                                                                 height="736" alt=""></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8 col-xl-9">
+                                <header class="entry-header">
+                                    <div class="entry-meta">
+                                        <span class="posted-in"><span class="screen-reader-text">Posted in: </span> <a
+                                                href="episodes.html" rel="bookmark">Season 1</a></span> <span
+                                            class="posted-on"><span class="screen-reader-text">Posted on: </span> <a
+                                            href="single-episode.html" rel="bookmark"><time class="entry-date published"
+                                                                                            datetime="2017-09-09T14:48:37+00:00">9 September 2017</time></a></span>
+                                        <span class="tags"><span class="screen-reader-text">Tagged: </span> <a rel="tag"
+                                                                                                               href="#">talk</a>, <a
+                                                rel="tag" href="#">nomore</a>, <a rel="tag" href="#">handmade</a></span>
+                                    </div>
+                                    <h2 class="entry-title"><a href="single-episode.html" rel="bookmark">Red hat
+                                        craftswoman glazing handmade white china pot</a></h2>
+                                </header>
+                                <div class="entry-content">
+                                    <p>Ham hock meatloaf corned beef tri-tip shankle capicola, ground round pastrami
+                                        spare ribs leberkas pork loin tongue cupim. Cow burgdoggen landjaeger flank chop
+                                        chuck&hellip; <a href="single-episode.html">(read more)</a></p>
+                                </div>
+                                <div class="entry-audio">
+                                    <div class="podcast-episode">
+                                        <div class="podcast-episode-player" data-episode-duration="00:44">
+                                            <audio class="wp-audio-shortcode" preload="none" style="width: 100%;"
+                                                   controls="controls">
+                                                <source src="https://html.liviucerchez.com/common/preview2.mp3"
+                                                        type="audio/mpeg"/>
+                                                <source src="https://html.liviucerchez.com/common/preview2.ogg"
+                                                        type="audio/ogg"/>
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="entry entry-episode">
+                        <div class="row align-items-lg-center">
+                            <div class="col-12 col-md-4 col-xl-3">
+                                <div class="entry-media entry-image multiply-effect">
+                                    <a href="single-episode.html">
+                                        <img class="first" src="tmp/sample-post-square3.jpg" width="736" height="736"
+                                             alt="">
+                                        <span class="second"><img src="tmp/sample-post-square3.jpg" width="736"
+                                                                  height="736" alt=""></span>
+                                        <span class="third"><img src="tmp/sample-post-square3.jpg" width="736"
+                                                                 height="736" alt=""></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-8 col-xl-9">
+                                <header class="entry-header">
+                                    <div class="entry-meta">
+                                        <span class="posted-in"><span class="screen-reader-text">Posted in: </span> <a
+                                                href="episodes.html" rel="bookmark">Season 1</a></span> <span
+                                            class="posted-on"><span class="screen-reader-text">Posted on: </span> <a
+                                            href="single-episode.html" rel="bookmark"><time class="entry-date published"
+                                                                                            datetime="2017-09-03T14:48:37+00:00">3 September 2017</time></a></span>
+                                        <span class="tags"><span class="screen-reader-text">Tagged: </span> <a rel="tag"
+                                                                                                               href="#">citrus</a>, <a
+                                                rel="tag" href="#">photography</a>, <a rel="tag"
+                                                                                       href="#">seed</a></span>
+                                    </div>
+                                    <h2 class="entry-title"><a href="single-episode.html" rel="bookmark">Lemon juice for
+                                        the next generations to come</a></h2>
+                                </header>
+                                <div class="entry-content">
+                                    <p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi
+                                        pea sprouts fava bean collard greens dandelion okra wakame tomato sprout
+                                        coriander water chestnut&hellip; <a href="single-episode.html">(read more)</a>
+                                    </p>
+                                </div>
+                                <div class="entry-audio">
+                                    <div class="podcast-episode">
+                                        <div class="podcast-episode-player" data-episode-duration="00:41">
+                                            <audio class="wp-audio-shortcode" preload="none" style="width: 100%;"
+                                                   controls="controls">
+                                                <source src="https://html.liviucerchez.com/common/preview1.mp3"
+                                                        type="audio/mpeg"/>
+                                                <source src="https://html.liviucerchez.com/common/preview1.ogg"
+                                                        type="audio/ogg"/>
+                                            </audio>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="pagination pagination-load-more">
+                        <a href="episodes.html" class="button button-filled"><span class="zmdi zmdi-more"></span> Browse
+                            More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="latest-news margin-top-bottom invert-colors fade-background-70 padding-top-bottom">
+        <div class="container">
+            <h3 class="add-separator"><span>Latest <em>News</em></span></h3>
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <article class="entry entry-post">
+                        <header class="entry-header">
+                            <div class="categories">
+                                <span class="screen-reader-text">Posted in: </span> <a href="blog.html"
+                                                                                       rel="category tag">Updates</a>
+                            </div>
+                            <h2 class="entry-title"><a href="single-post.html" rel="bookmark">Starting fresh one of
+                                these days</a></h2>
+                            <div class="entry-meta">
+                                <span class="posted-on"><span class="screen-reader-text">Posted on: </span><a
+                                        href="single-post.html">19 October 2017</a></span>
+                            </div>
+                        </header>
+                        <div class="entry-content">
+                            <p>Nori grape silver beet broccoli kombu beet greens fava bean potato quandong celery bunya
+                                nuts black-eyed pea prairie&hellip;</p>
+                            <a href="single-post.html" class="read-more">Read more <span
+                                    class="zmdi zmdi-trending-flat"></span></a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-12 col-md-4">
+                    <article class="entry entry-post">
+                        <header class="entry-header">
+                            <div class="categories">
+                                <span class="screen-reader-text">Posted in: </span> <a href="blog.html"
+                                                                                       rel="category tag">Podcast</a>
+                            </div>
+                            <h2 class="entry-title"><a href="single-post.html" rel="bookmark">Lessons learned from the
+                                big guys</a></h2>
+                            <div class="entry-meta">
+                                <span class="posted-on"><span class="screen-reader-text">Posted on: </span><a
+                                        href="single-post.html">13 October 2017</a></span>
+                            </div>
+                        </header>
+                        <div class="entry-content">
+                            <p>Sea lettuce lettuce water chestnut eggplant winter purslane fennel azuki bean earthnut
+                                pea sierra leone bologi leek&hellip;</p>
+                            <a href="single-post.html" class="read-more">Read more <span
+                                    class="zmdi zmdi-trending-flat"></span></a>
+                        </div>
+                    </article>
+                </div>
+                <div class="col-12 col-md-4">
+                    <article class="entry entry-post">
+                        <header class="entry-header">
+                            <div class="categories">
+                                <span class="screen-reader-text">Posted in: </span> <a href="blog.html"
+                                                                                       rel="category tag">Interviews</a>
+                            </div>
+                            <h2 class="entry-title"><a href="single-post.html" rel="bookmark">Yes, let’s start a great
+                                project</a></h2>
+                            <div class="entry-meta">
+                                <span class="posted-on"><span class="screen-reader-text">Posted on: </span><a
+                                        href="single-post.html">16 September 2017</a></span>
+                            </div>
+                        </header>
+                        <div class="entry-content">
+                            <p>Salsify taro catsear garlic gram celery bitterleaf wattle seed collard greens nori grape
+                                wattle seed kombu beetroot&hellip;</p>
+                            <a href="single-post.html" class="read-more">Read more <span
+                                    class="zmdi zmdi-trending-flat"></span></a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="pagination pagination-load-more">
+                <a href="blog.html" class="button button-white button-filled"><span class="zmdi zmdi-more"></span>
+                    Browse More</a>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="latest-images">
+                    <h3 class="add-separator"><span>Latest from <em>Instagram</em></span></h3>
+                    <div class="row">
+                        <div class="image-item col">
+                            <div class="multiply-effect">
+                                <a href="#" target="_blank">
+                                    <img class="first" src="tmp/sample-instragram1.jpg" width="300" height="300" alt="">
+                                    <span class="second"><img src="tmp/sample-instragram1.jpg" width="300" height="300"
+                                                              alt=""></span>
+                                    <span class="third"><img src="tmp/sample-instragram1.jpg" width="300" height="300"
+                                                             alt=""></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-item col">
+                            <div class="multiply-effect">
+                                <a href="#" target="_blank">
+                                    <img class="first" src="tmp/sample-instragram2.jpg" width="300" height="300" alt="">
+                                    <span class="second"><img src="tmp/sample-instragram2.jpg" width="300" height="300"
+                                                              alt=""></span>
+                                    <span class="third"><img src="tmp/sample-instragram2.jpg" width="300" height="300"
+                                                             alt=""></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-item col d-none d-sm-block">
+                            <div class="multiply-effect">
+                                <a href="#" target="_blank">
+                                    <img class="first" src="tmp/sample-instragram3.jpg" width="300" height="300" alt="">
+                                    <span class="second"><img src="tmp/sample-instragram3.jpg" width="300" height="300"
+                                                              alt=""></span>
+                                    <span class="third"><img src="tmp/sample-instragram3.jpg" width="300" height="300"
+                                                             alt=""></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-item col d-none d-lg-block">
+                            <div class="multiply-effect">
+                                <a href="#" target="_blank">
+                                    <img class="first" src="tmp/sample-instragram4.jpg" width="300" height="300" alt="">
+                                    <span class="second"><img src="tmp/sample-instragram4.jpg" width="300" height="300"
+                                                              alt=""></span>
+                                    <span class="third"><img src="tmp/sample-instragram4.jpg" width="300" height="300"
+                                                             alt=""></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="image-item col d-none d-xl-block">
+                            <div class="multiply-effect">
+                                <a href="#" target="_blank">
+                                    <img class="first" src="tmp/sample-instragram5.jpg" width="300" height="300" alt="">
+                                    <span class="second"><img src="tmp/sample-instragram5.jpg" width="300" height="300"
+                                                              alt=""></span>
+                                    <span class="third"><img src="tmp/sample-instragram5.jpg" width="300" height="300"
+                                                             alt=""></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination pagination-load-more">
+                        <a href="#" class="button"><span class="zmdi zmdi-instagram"></span> Follow Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer id="footer" class="padding-top-bottom">
+	<div class="container" style="margin-bottom: 200px;">
+       
+    <div class="container">
+        <div class="row">
+            <div class="widget-area col-12">
+                <section class="widget widget_text" style="margin-bottom: 100px;">
+                    <h3 class="widget-title">APOIADORES E PATROCINADORES</h3>
+                    <div class="col-md-100">
+                    <div class="textwidget col-md-50" style="margin-top: 50px;">
+                        <a href="https://www.instagram.com/grupozelobr/?hl=en" target="_blank"><img src="logozelo.png" style="max-width: 350px;"/></a>
+                    </div>
+<!--
+                    <div class="textwidget col-md-50" style="margin-top: 50px;">
+                        <a href="https://www.instagram.com/kalbiratacarejo/?hl=en" target="_blank"><img src="logogrupokalbir.png" style="max-width: 250px;"/></a>
+                    </div>
+-->
+                    </div>
+                </section>
+                <section class="widget widget_nav">
+                    <h3 class="screen-reader-text">Social Navigation</h3>
+                    <nav>
+                        <ul class="social-navigation">
+                            <li class="menu-item menu-item-type-custom">
+                                <a title="Facebook Profile" target="_blank"
+                                   href="https://www.facebook.com/radiologosfm913"><span
+                                        class="screen-reader-text">Facebook</span></a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom">
+                                <a title="YouTube Channel" target="_blank" href="https://youtube.com"><span
+                                        class="screen-reader-text">YouTube</span></a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom">
+                                <a title="YouTube Channel" target="_blank" href="https://instagram.com/logosfm"><span
+                                        class="screen-reader-text">Instagram</span></a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom">
+                                <a title="Google Play" target="_blank"
+                                   href="https://play.google.com/store/apps/details?id=com.app.logosfm"><span
+                                        class="screen-reader-text">Google Play</span></a>
+                            </li>
+                            <li class="menu-item menu-item-type-custom">
+                                <a title="App Store" target="_blank"
+                                   href="https://apps.apple.com/us/app/logos-fm/id1436607873?l=pt&ls=1"><span
+                                        class="screen-reader-text">App Store</span></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+            </div>
+            <div class="copyright col-12">
+                <p>&copy; Logos FM. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js'></script>
+<script src='https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js'></script>
+<!--    <script src='https://cdn.gitcdn.xyz/cdn/angular/bower-material/v1.0.0-rc7/angular-material.js'></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.16/angular-filter.js"></script>
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="/assets/app/app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/6.6.1/firebase-app.js"></script>
+<script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+<script src="assets/js/jquery-3.2.1.min.js"></script>
+<script src="assets/js/modernizr-custom.js"></script>
+<script src="assets/js/functions.js"></script>
+
+<!-- MediaElement.js files -->
+<link rel="stylesheet" id="mediaelement-css" href="assets/mediaelement/mediaelementplayer-legacy.css">
+<link rel="stylesheet" id="wp-mediaelement-css" href="assets/mediaelement/wp-mediaelement.css">
+<link rel="stylesheet" id="castilo-additional-mediaelement-css" href="assets/css/mediaelement-castilo.css">
+<script src="assets/mediaelement/mediaelement-and-player.js"></script>
+<script src="assets/mediaelement/mediaelement-migrate.js"></script>
+<script src="assets/mediaelement/wp-mediaelement.js"></script>
+<script src="assets/js/mediaelement-castilo.js"></script>
+</body>
+</html>
