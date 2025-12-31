@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: logosfm-website
     ports:
-      - "8000:8000"
+      - "7777:8000"
     restart: unless-stopped
     networks:
       - logosfm-network
