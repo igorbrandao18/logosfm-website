@@ -1,0 +1,30 @@
+# Git
+.git
+.gitignore
+
+# macOS
+__MACOSX
+.DS_Store
+
+# Node modules (se houver)
+node_modules
+npm-debug.log
+
+# Arquivos temporários
+*.log
+*.tmp
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# CI/CD
+.github
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+

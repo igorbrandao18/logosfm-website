@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: logosfm-website
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    networks:
+      - logosfm-network
+
+networks:
+  logosfm-network:
+    driver: bridge
+

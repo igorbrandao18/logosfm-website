@@ -1,0 +1,116 @@
+name: Build and Deploy Docker Image
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        run: |
+          docker build -t logosfm-website:latest .
+      
+      - name: Test Docker image
+        run: |
+          docker run -d -p 8000:8000 --name test-container logosfm-website:latest
+          sleep 5
+          curl -f http://localhost:8000 || exit 1
+          docker stop test-container
+          docker rm test-container
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y sshpass
+      
+      - name: Copy files to server
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          
+          # Criar diretório no servidor se não existir
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p /opt/logosfm-website"
+          
+          # Criar arquivo tar com todos os arquivos necessários
+          tar --exclude='.git' --exclude='__MACOSX' --exclude='node_modules' \
+              --exclude='.github' -czf site-files.tar.gz .
+          
+          # Copiar arquivo tar para o servidor
+          sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no \
+            site-files.tar.gz \
+            $SERVER_USER@$SERVER_IP:/opt/logosfm-website/
+          
+          # Extrair arquivos no servidor
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            cd /opt/logosfm-website
+            tar -xzf site-files.tar.gz
+            rm site-files.tar.gz
+          EOF
+          
+          # Limpar arquivo tar local
+          rm site-files.tar.gz
+      
+      - name: Deploy on server
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          # Fazer build e restart do container no servidor
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            cd /opt/logosfm-website
+            
+            # Verificar se docker-compose está instalado, se não, instalar
+            if ! command -v docker-compose &> /dev/null; then
+              echo "Installing docker-compose..."
+              curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+              chmod +x /usr/local/bin/docker-compose
+            fi
+            
+            # Parar containers existentes
+            docker-compose down || true
+            
+            # Build e start
+            docker-compose build --no-cache
+            docker-compose up -d
+            
+            # Verificar status
+            docker-compose ps
+            echo "Deploy completed successfully!"
+          EOF
+      
+      - name: Verify deployment
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          sleep 5
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "curl -f http://localhost:8000 || exit 1"
+          echo "Deployment verified successfully!"
+
