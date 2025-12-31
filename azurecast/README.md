@@ -6,7 +6,7 @@
 - Porta 8000 disponível
 - Domínio configurado: `streaming-prod.brandaodeveloper.com.br`
 
-## 🚀 Instalação
+## 🚀 Instalação Rápida
 
 ### 1. Acessar o servidor
 
@@ -20,43 +20,36 @@ ssh root@72.60.253.154
 cd /opt/logosfm-website/azurecast
 ```
 
-### 3. Instalar AzureCast
+### 3. Configurar variáveis de ambiente
 
-#### Opção A: Download direto do AzureCast
+Edite o `docker-compose.yml` e altere as senhas padrão:
 
-```bash
-# Baixar AzureCast
-wget https://github.com/AzuraCast/AzuraCast/releases/latest/download/azuracast.tar.gz
-
-# Extrair para o diretório data
-tar -xzf azuracast.tar.gz -C data/
-rm azuracast.tar.gz
-
-# Ajustar permissões
-chown -R 1001:1001 data/
+```yaml
+environment:
+  - AZURACAST_DB_PASSWORD=sua_senha_db_segura
+  - AZURACAST_ADMIN_EMAIL=admin@brandaodeveloper.com.br
+  - AZURACAST_ADMIN_PASSWORD=sua_senha_admin_segura
 ```
 
-#### Opção B: Usar Docker Compose oficial do AzureCast
-
-Se preferir usar a instalação oficial do AzureCast, você pode substituir o `docker-compose.yml` atual pelo oficial.
-
-### 4. Configurar variáveis de ambiente (se necessário)
-
-Crie um arquivo `.env` se o AzureCast precisar de configurações específicas:
+### 4. Iniciar o AzureCast (imagem oficial do Docker Hub)
 
 ```bash
-cat > .env << 'EOF'
-AZURACAST_DB_PASSWORD=senha_segura_aqui
-AZURACAST_ADMIN_EMAIL=admin@brandaodeveloper.com.br
-AZURACAST_ADMIN_PASSWORD=senha_admin_segura
-EOF
+# Pull da imagem oficial
+docker-compose pull
+
+# Iniciar o container
+docker-compose up -d
 ```
 
-### 5. Iniciar o container
+### 5. Aguardar inicialização
+
+O AzureCast leva alguns minutos para inicializar completamente. Acompanhe os logs:
 
 ```bash
-docker-compose up -d --build
+docker-compose logs -f
 ```
+
+Quando aparecer "AzuraCast is now ready", o sistema está pronto!
 
 ### 6. Verificar logs
 
