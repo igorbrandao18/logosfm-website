@@ -131,14 +131,12 @@ jobs:
               yes '' | ./docker.sh install
             fi
             
-            # Criar override para mapear porta 8000:80 (porta 80 está em uso pelo Nginx)
+            # Configurar porta 8000 diretamente no docker-compose.yml (porta 80 está em uso pelo Nginx)
             echo "Configuring AzureCast to use port 8000..."
-            cat > docker-compose.override.yml << 'OVERRIDE'
-services:
-  web:
-    ports:
-      - "8000:80"
-OVERRIDE
+            if [ -f "docker-compose.yml" ]; then
+              # Substituir mapeamentos de porta 80 por 8000 (formato: '${AZURACAST_HTTP_PORT:-80}:${AZURACAST_HTTP_PORT:-80}')
+              sed -i "s/'\${AZURACAST_HTTP_PORT:-80}:\${AZURACAST_HTTP_PORT:-80}'/'8000:80'/g" docker-compose.yml
+            fi
             
             # Reiniciar com nova configuração
             docker-compose down || true
