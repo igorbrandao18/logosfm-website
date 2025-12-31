@@ -6,13 +6,14 @@ services:
     ports:
       - "8000:80"
     environment:
-      - AZURACAST_DB_PASSWORD=changeme
+      - AZURACAST_DB_PASSWORD=changeme_db_password
       - AZURACAST_ADMIN_EMAIL=admin@brandaodeveloper.com.br
-      - AZURACAST_ADMIN_PASSWORD=changeme
+      - AZURACAST_ADMIN_PASSWORD=changeme_admin_password
     volumes:
-      - ./data:/var/azuracast/www
+      - ./data/www:/var/azuracast/www
       - ./data/mysql:/var/lib/mysql
       - ./data/stations:/var/azuracast/stations
+      - ./data/redis:/var/lib/redis
     networks:
       - azurecast-network
 
