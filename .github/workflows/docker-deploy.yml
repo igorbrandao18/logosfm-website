@@ -27,9 +27,9 @@ jobs:
       
       - name: Test Docker image
         run: |
-          docker run -d -p 8000:8000 --name test-container logosfm-website:latest
+          docker run -d -p 7777:8000 --name test-container logosfm-website:latest
           sleep 5
-          curl -f http://localhost:8000 || exit 1
+          curl -f http://localhost:7777 || exit 1
           docker stop test-container
           docker rm test-container
 
