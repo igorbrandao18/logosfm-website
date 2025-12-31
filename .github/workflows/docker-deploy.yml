@@ -76,13 +76,13 @@ jobs:
           # Limpar arquivo tar local
           rm -rf /tmp/deploy
       
-      - name: Deploy on server
+      - name: Deploy site on server
         env:
           SERVER_IP: ${{ secrets.SERVER_IP }}
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
-          # Fazer build e restart do container no servidor
+          # Fazer build e restart do container do site no servidor
           sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
             cd /opt/logosfm-website
             
@@ -93,16 +93,45 @@ jobs:
               chmod +x /usr/local/bin/docker-compose
             fi
             
-            # Parar containers existentes
+            # Parar containers existentes do site
             docker-compose down || true
             
-            # Build e start
+            # Build e start do site
             docker-compose build --no-cache
             docker-compose up -d
             
-            # Verificar status
+            # Verificar status do site
             docker-compose ps
-            echo "Deploy completed successfully!"
+            echo "Site deploy completed successfully!"
+          EOF
+      
+      - name: Deploy AzureCast on server
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+          SERVER_USER: ${{ secrets.SERVER_USER }}
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          # Fazer build e restart do container do AzureCast no servidor
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+            cd /opt/logosfm-website/azurecast
+            
+            # Criar diretório data se não existir
+            mkdir -p data
+            
+            # Parar containers existentes do AzureCast
+            docker-compose down || true
+            
+            # Build e start do AzureCast (se os arquivos existirem)
+            if [ -f "docker-compose.yml" ] && [ -f "Dockerfile" ]; then
+              docker-compose build --no-cache
+              docker-compose up -d
+              
+              # Verificar status do AzureCast
+              docker-compose ps
+              echo "AzureCast deploy completed successfully!"
+            else
+              echo "AzureCast files not found, skipping AzureCast deployment"
+            fi
           EOF
       
       - name: Verify deployment
@@ -112,6 +141,15 @@ jobs:
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
           sleep 5
+          
+          # Verificar site (porta 7777)
+          echo "Verifying site on port 7777..."
           sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "curl -f http://localhost:7777 || exit 1"
-          echo "Deployment verified successfully!"
+          echo "Site verified successfully!"
+          
+          # Verificar AzureCast (porta 8000) - opcional, pode não estar rodando ainda
+          echo "Verifying AzureCast on port 8000..."
+          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "curl -f http://localhost:8000 || echo 'AzureCast not running yet (this is OK if not installed)'"
+          
+          echo "Deployment verification completed!"
 
