@@ -52,29 +52,35 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
+          set -e
           
-          # Criar diretório no servidor se não existir
-          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP "mkdir -p /opt/logosfm-website"
+          # Criar diretório no servidor se não existir (com timeout)
+          echo "Creating directory on server..."
+          timeout 30 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP "mkdir -p /opt/logosfm-website" || exit 1
           
           # Criar arquivo tar em diretório temporário para evitar conflito
+          echo "Creating tarball..."
           mkdir -p /tmp/deploy
           tar --exclude='.git' --exclude='__MACOSX' --exclude='node_modules' \
               --exclude='.github' -czf /tmp/deploy/site-files.tar.gz .
           
-          # Copiar arquivo tar para o servidor
-          sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no \
+          # Copiar arquivo tar para o servidor (com timeout)
+          echo "Copying files to server..."
+          timeout 120 sshpass -p "$SERVER_PASSWORD" scp -o StrictHostKeyChecking=no -o ConnectTimeout=10 \
             /tmp/deploy/site-files.tar.gz \
-            $SERVER_USER@$SERVER_IP:/opt/logosfm-website/
+            $SERVER_USER@$SERVER_IP:/opt/logosfm-website/ || exit 1
           
-          # Extrair arquivos no servidor
-          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+          # Extrair arquivos no servidor (com timeout)
+          echo "Extracting files on server..."
+          timeout 60 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP << 'EOF'
             cd /opt/logosfm-website
             tar -xzf site-files.tar.gz
             rm site-files.tar.gz
-          EOF
+          EOF || exit 1
           
           # Limpar arquivo tar local
           rm -rf /tmp/deploy
+          echo "Files copied successfully!"
       
       - name: Deploy site on server
         env:
@@ -82,8 +88,9 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
+          set -e
           # Fazer build e restart do container do site no servidor
-          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+          timeout 300 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP << 'EOF'
             cd /opt/logosfm-website
             
             # Verificar se docker-compose está instalado, se não, instalar
@@ -111,8 +118,9 @@ jobs:
           SERVER_USER: ${{ secrets.SERVER_USER }}
           SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
         run: |
+          set -e
           # Instalar/atualizar AzureCast usando método oficial
-          sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no $SERVER_USER@$SERVER_IP << 'EOF'
+          timeout 600 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP << 'EOF'
             cd /opt/logosfm-website/azurecast
             
             # Baixar script oficial se não existir
