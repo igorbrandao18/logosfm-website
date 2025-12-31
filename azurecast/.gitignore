@@ -1,0 +1,17 @@
+# Data directory
+data/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.cache
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
