@@ -124,23 +124,15 @@ jobs:
             # Se já estiver instalado, apenas atualizar
             if [ -f ".env" ] && [ -f "docker-compose.yml" ]; then
               echo "AzureCast already installed, updating..."
-              ./docker.sh stop || true
-              ./docker.sh update
+              docker-compose down || true
+              ./docker.sh update || yes '' | ./docker.sh install
             else
               echo "Installing AzureCast for the first time..."
               yes '' | ./docker.sh install
             fi
             
-            # Configurar porta 8000 no .env (porta 80 está em uso pelo Nginx)
-            if [ -f ".env" ]; then
-              echo "Configuring AzureCast to use port 8000..."
-              # Atualizar HTTP_PORT para 8000
-              sed -i 's/^AZURACAST_HTTP_PORT=.*/AZURACAST_HTTP_PORT=8000/' .env || echo "AZURACAST_HTTP_PORT=8000" >> .env
-              # Garantir que não há duplicatas
-              grep -q "^AZURACAST_HTTP_PORT=8000" .env || sed -i '/^AZURACAST_HTTP_PORT=/d' .env && echo "AZURACAST_HTTP_PORT=8000" >> .env
-            fi
-            
-            # Criar override para mapear porta 8000:80
+            # Criar override para mapear porta 8000:80 (porta 80 está em uso pelo Nginx)
+            echo "Configuring AzureCast to use port 8000..."
             cat > docker-compose.override.yml << 'OVERRIDE'
 services:
   web:
@@ -149,7 +141,8 @@ services:
 OVERRIDE
             
             # Reiniciar com nova configuração
-            ./docker.sh restart
+            docker-compose down || true
+            docker-compose up -d
             
             # Aguardar inicialização
             sleep 15
