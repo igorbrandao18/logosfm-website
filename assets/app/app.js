@@ -16,6 +16,6 @@ angular.module('Home', ['angular.filter', 'ngMaterial', 'ngMessages',])
             // Allow same origin resource loads.
             'self',
             // Allow loading from our assets domain. **.
-            'http://centova6.ciclanohost.com.br:9452/stream'
+            'https://streaming-prod.brandaodeveloper.com.br/stream'
         ])
     });
