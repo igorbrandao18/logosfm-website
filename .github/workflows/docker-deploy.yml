@@ -131,19 +131,14 @@ jobs:
               yes '' | ./docker.sh install
             fi
             
-            # Configurar porta 8000 via variável de ambiente (porta 80 está em uso pelo Nginx)
-            echo "Configuring AzureCast to use port 8000..."
-            if [ -f ".env" ]; then
-              # Remover comentários e atualizar HTTP_PORT
-              sed -i 's/^# AZURACAST_HTTP_PORT=.*/AZURACAST_HTTP_PORT=8000/' .env
-              sed -i 's/^AZURACAST_HTTP_PORT=.*/AZURACAST_HTTP_PORT=8000/' .env
-              # Configurar HTTPS_PORT para porta não padrão também
-              sed -i 's/^# AZURACAST_HTTPS_PORT=.*/AZURACAST_HTTPS_PORT=8443/' .env
-              sed -i 's/^AZURACAST_HTTPS_PORT=.*/AZURACAST_HTTPS_PORT=8443/' .env
-              # Garantir que as variáveis existem
-              grep -q "^AZURACAST_HTTP_PORT=" .env || echo "AZURACAST_HTTP_PORT=8000" >> .env
-              grep -q "^AZURACAST_HTTPS_PORT=" .env || echo "AZURACAST_HTTPS_PORT=8443" >> .env
+            # Configurar porta 8000 mapeando para porta 80 interna do container (porta 80 host está em uso pelo Nginx)
+            echo "Configuring AzureCast to use port 8000 (host) -> 80 (container)..."
+            if [ -f "docker-compose.yml" ]; then
+              # Substituir mapeamento de porta para 8000:80 (host:container)
+              sed -i "s/'\${AZURACAST_HTTP_PORT:-80}:\${AZURACAST_HTTP_PORT:-80}'/'8000:80'/g" docker-compose.yml
             fi
+            # Remover override antigo se existir
+            rm -f docker-compose.override.yml
             
             # Reiniciar com nova configuração
             docker-compose down || true
