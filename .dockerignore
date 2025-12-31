@@ -28,3 +28,6 @@ docker-compose.yml
 *.swp
 *.swo
 
+# AzureCast - aplicação separada
+azurecast/
+
