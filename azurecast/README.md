@@ -1,12 +1,14 @@
-# AzureCast Streaming Server - Guia de Configuração
+# AzureCast Streaming Server - Guia de Instalação Oficial
 
 ## 📋 Pré-requisitos
 
-- Docker e Docker Compose instalados
+- Docker e Docker Compose instalados (o script instala automaticamente se necessário)
 - Porta 8000 disponível
 - Domínio configurado: `streaming-prod.brandaodeveloper.com.br`
 
-## 🚀 Instalação Rápida
+## 🚀 Instalação Oficial (Método Recomendado)
+
+O AzureCast usa um script de instalação oficial (`docker.sh`) que gerencia tudo automaticamente, incluindo Docker, Docker Compose e a configuração completa.
 
 ### 1. Acessar o servidor
 
@@ -20,25 +22,42 @@ ssh root@72.60.253.154
 cd /opt/logosfm-website/azurecast
 ```
 
-### 3. Configurar variáveis de ambiente
-
-Edite o `docker-compose.yml` e altere as senhas padrão:
-
-```yaml
-environment:
-  - AZURACAST_DB_PASSWORD=sua_senha_db_segura
-  - AZURACAST_ADMIN_EMAIL=admin@brandaodeveloper.com.br
-  - AZURACAST_ADMIN_PASSWORD=sua_senha_admin_segura
-```
-
-### 4. Iniciar o AzureCast (imagem oficial do Docker Hub)
+### 3. Baixar e executar o script oficial de instalação
 
 ```bash
-# Pull da imagem oficial
-docker-compose pull
+# Baixar o script oficial do AzureCast
+curl -fsSL https://raw.githubusercontent.com/AzuraCast/AzuraCast/main/docker.sh > docker.sh
 
-# Iniciar o container
-docker-compose up -d
+# Tornar executável
+chmod a+x docker.sh
+
+# Executar instalação (modo não-interativo)
+yes '' | ./docker.sh install
+```
+
+O script irá:
+- Instalar Docker e Docker Compose (se necessário)
+- Baixar as imagens Docker do AzureCast
+- Criar os arquivos de configuração (`.env`, `docker-compose.yml`)
+- Iniciar todos os serviços
+
+### 4. Configurar porta customizada (8000)
+
+Após a instalação, edite o `docker-compose.override.yml` ou `.env` para mapear a porta:
+
+```bash
+# Criar override para porta 8000
+cat > docker-compose.override.yml << 'EOF'
+version: '2.2'
+
+services:
+  web:
+    ports:
+      - "8000:80"
+EOF
+
+# Reiniciar com nova configuração
+./docker.sh restart
 ```
 
 ### 5. Aguardar inicialização
@@ -46,10 +65,105 @@ docker-compose up -d
 O AzureCast leva alguns minutos para inicializar completamente. Acompanhe os logs:
 
 ```bash
-docker-compose logs -f
+./docker.sh logs
 ```
 
-Quando aparecer "AzuraCast is now ready", o sistema está pronto!
+Quando aparecer "AzuraCast is now ready", acesse via navegador!
+
+### 6. Acessar o AzureCast
+
+Após a inicialização, acesse:
+- **IP direto:** http://72.60.253.154:8000
+- **Domínio:** http://streaming-prod.brandaodeveloper.com.br (após DNS propagar)
+
+Na primeira vez, você será redirecionado para criar a conta de administrador.
+
+## 📝 Comandos Úteis do Script
+
+```bash
+# Ver status dos containers
+./docker.sh ps
+
+# Ver logs
+./docker.sh logs
+
+# Reiniciar serviços
+./docker.sh restart
+
+# Parar serviços
+./docker.sh stop
+
+# Iniciar serviços
+./docker.sh start
+
+# Atualizar AzureCast
+./docker.sh update
+
+# Instalar Docker (se necessário)
+./docker.sh install-docker
+
+# Instalar Docker Compose (se necessário)
+./docker.sh install-docker-compose
+```
+
+## 🔧 Configuração do Nginx (Proxy Reverso)
+
+O Nginx no servidor host já está configurado em `/etc/nginx/sites-available/streaming-prod.brandaodeveloper.com.br` para:
+- Escutar na porta 80
+- Proxificar para `http://localhost:8000`
+- Suportar streaming (proxy_buffering off)
+
+## 🌐 Configuração DNS
+
+Certifique-se de que o DNS está configurado:
+
+**Registro A:**
+- **Nome:** `streaming-prod`
+- **Tipo:** `A`
+- **Valor:** `72.60.253.154`
+- **TTL:** `3600`
+
+## 🔒 Configurar SSL/HTTPS
+
+Após o DNS propagar, configure SSL:
+
+```bash
+certbot --nginx -d streaming-prod.brandaodeveloper.com.br
+```
+
+## 📚 Documentação Oficial
+
+- [AzureCast Installation Guide](https://www.azuracast.com/docs/getting-started/installation/docker/)
+- [AzureCast GitHub](https://github.com/AzuraCast/AzuraCast)
+- [AzureCast Documentation](https://www.azuracast.com/docs/)
+
+## 🛠️ Troubleshooting
+
+### Porta 8000 não responde:
+```bash
+# Verificar se os containers estão rodando
+./docker.sh ps
+
+# Ver logs para identificar problemas
+./docker.sh logs
+
+# Reiniciar serviços
+./docker.sh restart
+```
+
+### Erro ao instalar Docker/Docker Compose:
+```bash
+cd /opt/logosfm-website/azurecast
+./docker.sh install-docker
+./docker.sh install-docker-compose
+./docker.sh install
+```
+
+### Verificar firewall:
+```bash
+ufw status
+ufw allow 8000/tcp
+```
 
 ### 6. Verificar logs
 
