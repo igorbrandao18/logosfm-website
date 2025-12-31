@@ -72,11 +72,7 @@ jobs:
           
           # Extrair arquivos no servidor (com timeout)
           echo "Extracting files on server..."
-          timeout 60 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP bash << 'EOF' || exit 1
-            cd /opt/logosfm-website
-            tar -xzf site-files.tar.gz
-            rm site-files.tar.gz
-EOF
+          timeout 60 sshpass -p "$SERVER_PASSWORD" ssh -o StrictHostKeyChecking=no -o ConnectTimeout=10 $SERVER_USER@$SERVER_IP "cd /opt/logosfm-website && tar -xzf site-files.tar.gz && rm site-files.tar.gz" || exit 1
           
           # Limpar arquivo tar local
           rm -rf /tmp/deploy
