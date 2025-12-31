@@ -131,11 +131,15 @@ jobs:
               yes '' | ./docker.sh install
             fi
             
-            # Configurar porta 8000 diretamente no docker-compose.yml (porta 80 está em uso pelo Nginx)
+            # Configurar porta 8000 via variável de ambiente (porta 80 está em uso pelo Nginx)
             echo "Configuring AzureCast to use port 8000..."
-            if [ -f "docker-compose.yml" ]; then
-              # Substituir mapeamentos de porta 80 por 8000 (formato: '${AZURACAST_HTTP_PORT:-80}:${AZURACAST_HTTP_PORT:-80}')
-              sed -i "s/'\${AZURACAST_HTTP_PORT:-80}:\${AZURACAST_HTTP_PORT:-80}'/'8000:80'/g" docker-compose.yml
+            if [ -f ".env" ]; then
+              # Atualizar ou adicionar AZURACAST_HTTP_PORT=8000 no .env
+              if grep -q "^AZURACAST_HTTP_PORT=" .env; then
+                sed -i 's/^AZURACAST_HTTP_PORT=.*/AZURACAST_HTTP_PORT=8000/' .env
+              else
+                echo "AZURACAST_HTTP_PORT=8000" >> .env
+              fi
             fi
             
             # Reiniciar com nova configuração
