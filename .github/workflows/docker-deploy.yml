@@ -134,8 +134,12 @@ jobs:
             # Configurar porta 8000 mapeando para porta 80 interna do container (porta 80 host está em uso pelo Nginx)
             echo "Configuring AzureCast to use port 8000 (host) -> 80 (container)..."
             if [ -f "docker-compose.yml" ]; then
-              # Substituir mapeamento de porta para 8000:80 (host:container)
-              sed -i "s/'\${AZURACAST_HTTP_PORT:-80}:\${AZURACAST_HTTP_PORT:-80}'/'8000:80'/g" docker-compose.yml
+              # Substituir mapeamento de porta para 8000:80 (host:container) - apenas a primeira ocorrência
+              sed -i "0,/'\\\${AZURACAST_HTTP_PORT:-80}:\\\${AZURACAST_HTTP_PORT:-80}'/s/'\\\${AZURACAST_HTTP_PORT:-80}:\\\${AZURACAST_HTTP_PORT:-80}'/'8000:80'/" docker-compose.yml
+              # Remover linhas de portas hardcoded que podem causar conflito (8000:8000, 8005:8005, etc)
+              sed -i "/^[[:space:]]*- '8000:8000'/d" docker-compose.yml
+              sed -i "/^[[:space:]]*- '8005:8005'/d" docker-compose.yml
+              sed -i "/^[[:space:]]*- '8006:8006'/d" docker-compose.yml
             fi
             # Remover override antigo se existir
             rm -f docker-compose.override.yml
